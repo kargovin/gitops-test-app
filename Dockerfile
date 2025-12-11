@@ -11,13 +11,10 @@ RUN pip install uv
 
 # 2. Copy dependency files: pyproject.toml and uv.lock are required by uv
 # We no longer need requirements.txt
-COPY pyproject.toml uv.lock .
+COPY pyproject.toml uv.lock ./
 
 # 3. Install dependencies using uv from the lock file
-# The --system flag tells uv to install into the standard Python environment path,
-# which is necessary here because we are installing global dependencies for the container.
-# If you used 'uv pip install -r requirements.txt', you would use that instead.
-RUN uv sync --system
+RUN uv venv && uv sync --frozen
 
 # --- Final Stage ---
 # Start from a clean, small base image
