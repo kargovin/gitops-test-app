@@ -14,7 +14,8 @@ RUN pip install uv
 COPY pyproject.toml uv.lock ./
 
 # 3. Install dependencies using uv from the lock file
-RUN uv venv && uv sync --frozen
+ENV UV_PROJECT_ENVIRONMENT="/usr/local/"
+RUN uv sync --frozen
 
 # --- Final Stage ---
 # Start from a clean, small base image
