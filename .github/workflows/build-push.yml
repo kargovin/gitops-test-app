@@ -22,5 +22,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/gitops-test-app:${{ github.ref_name }}-${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/gitops-test-app:${{ github.ref_name }}-${{ steps.timestamp.outputs.ts }}-${{ github.sha }}
           # Use the commit hash (github.sha) for an IMMUTABLE tag
