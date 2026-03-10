@@ -2,6 +2,14 @@
 
 from fastapi import FastAPI
 import os
+import logging
+
+class HealthCheckFilter(logging.Filter):
+    def filter(self, record):
+        msg = record.getMessage()
+        return "GET /health" not in msg and "HEAD / " not in msg
+
+logging.getLogger("uvicorn.access").addFilter(HealthCheckFilter())
 
 app = FastAPI(title="GitOps Test App")
 
