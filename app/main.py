@@ -10,6 +10,7 @@ app = FastAPI(title="GitOps Test App")
 VERSION = os.environ.get("APP_VERSION", "v1.0")
 
 @app.get("/", tags=["Root"])
+@app.head("/", include_in_schema=False)
 def read_root():
     return {
         "message": f"Hello from FastAPI! Deployment Version: {VERSION}",
@@ -18,5 +19,6 @@ def read_root():
     }
 
 @app.get("/health", tags=["Health"])
+@app.head("/health", include_in_schema=False)
 def health_check():
     return {"status": "UP"}
